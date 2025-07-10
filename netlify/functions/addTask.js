@@ -37,6 +37,10 @@ exports.handler = async function (event, context) {
         properties[notionKey] = {
           select: { name: value }
         };
+      } else if (notionKey === "Project Name") {
+        properties[notionKey] = {
+          title: [{ text: { content: String(value) } }]
+        };
       } else {
         properties[notionKey] = {
           rich_text: [{ text: { content: String(value) } }]
