@@ -1,4 +1,3 @@
-
 const { Client } = require("@notionhq/client");
 
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
@@ -18,8 +17,8 @@ exports.handler = async function (event, context) {
 
   try {
     const payload = JSON.parse(event.body);
-
     const properties = {};
+
     for (const [key, value] of Object.entries(payload)) {
       const notionKey = propertyMap[key];
       if (!notionKey) continue;
@@ -31,6 +30,12 @@ exports.handler = async function (event, context) {
       } else if (notionKey === "Is decision ") {
         properties[notionKey] = {
           checkbox: value === true || value === "Yes"
+        };
+      } else if (
+        ["Status", "Urgency", "AOL", "delegte to"].includes(notionKey)
+      ) {
+        properties[notionKey] = {
+          select: { name: value }
         };
       } else {
         properties[notionKey] = {
