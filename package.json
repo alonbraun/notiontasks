@@ -1,0 +1,8 @@
+{
+  "name": "notion-task-manager",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "dependencies": {
+    "@notionhq/client": "^2.2.4"
+  }
+}

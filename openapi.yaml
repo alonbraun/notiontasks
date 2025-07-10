@@ -1,0 +1,93 @@
+openapi: 3.1.0
+info:
+  title: Notion Task Manager API
+  version: 1.0.0
+servers:
+  - url: https://<your-site>.netlify.app/.netlify/functions
+paths:
+  /listTasks:
+    get:
+      summary: List tasks from Notion
+      operationId: listTasks
+      responses:
+        '200':
+          description: List of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    status:
+                      type: string
+  /addTask:
+    post:
+      summary: Add a new task to Notion
+      operationId: addTask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                status:
+                  type: string
+      responses:
+        '200':
+          description: Task added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+  /updateTask:
+    post:
+      summary: Update an existing task
+      operationId: updateTask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                status:
+                  type: string
+      responses:
+        '200':
+          description: Task updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+  /deleteTask:
+    post:
+      summary: Attempt to delete a task (Notion does not support deletion, will return error)
+      operationId: deleteTask
+      responses:
+        '200':
+          description: Not supported
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
